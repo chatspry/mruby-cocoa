@@ -70,7 +70,7 @@ cocoa_struct_const_missing(mrb_state *mrb, mrb_value klass)
         strcat(type, namestr);
         strcat(type, "=}");
         mrb_value strct = objc_type_to_cfunc_type(mrb, type);
-        mrb_define_const(mrb, (struct RClass*)mrb_object(klass), namestr, strct);
+        mrb_define_const(mrb, (struct RClass*)mrb_obj_ptr(klass), namestr, strct);
         return strct;
     }
     else {

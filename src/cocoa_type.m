@@ -124,8 +124,8 @@ objc_type_to_cfunc_type(mrb_state *mrb, const char* objc_type)
                 memcpy(name, name1, size);
                 name[size] = '\0';
                 name[size] = '\0';
-                if (mrb_const_defined(mrb, mrb_obj_value(cs->struct_module), mrb_intern(mrb, name))) {
-                    mrb_value klass = mrb_const_get(mrb, mrb_obj_value(cs->struct_module), mrb_intern(mrb, name));
+                if (mrb_const_defined(mrb, mrb_obj_value(cs->struct_module), mrb_intern_cstr(mrb, name))) {
+                    mrb_value klass = mrb_const_get(mrb, mrb_obj_value(cs->struct_module), mrb_intern_cstr(mrb, name));
                     mrb_free(mrb, name);
                     return cfunc_type_with_pointer(mrb, mrb_class_ptr(klass), pointer_count);
                 }

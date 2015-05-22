@@ -9,7 +9,8 @@ MRuby::Gem::Specification.new('mruby-cocoa') do |spec|
   spec.linker.flags << %w(-Wl,-allow_stack_execute -all_load)
   spec.linker.flags << %w(-framework Foundation)
   spec.test_preload = "#{dir}/test/mobitest.rb"
-   
+  spec.add_dependency('mruby-cfunc')
+
   # spec.rbfiles = Dir.glob("#{dir}/mrblib/*.rb")
   # spec.objs << ["#{LIBFFI_DIR}/lib/libffi.a"]
   # spec.test_rbfiles = Dir.glob("#{dir}/test/*.rb")

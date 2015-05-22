@@ -70,12 +70,12 @@ struct cocoa_state {
     struct BridgeSupportStructTable *struct_table;
     struct BridgeSupportConstTable *const_table;
     struct BridgeSupportEnumTable *enum_table;
-    
+
     void *object_association_key;
 
     mrb_sym sym_obj_holder;
     mrb_sym sym_delete;
-    
+
     struct cocoa_st_table *cocoa_classes;
 };
 
@@ -95,9 +95,9 @@ load_cocoa_bridgesupport(mrb_state *mrb,
 static inline struct cocoa_state *
 cocoa_state(mrb_state *mrb)
 {
-    struct RClass* klass = (struct RClass*)mrb_object(mrb_vm_const_get(mrb, mrb_intern(mrb, "Cocoa")));
-    mrb_value mstate = mrb_mod_cv_get(mrb, klass, mrb_intern(mrb, "cocoa_state"));
-    return (struct cocoa_state *)mrb_voidp(mstate);
+    struct RClass* klass = (struct RClass*)mrb_obj_ptr(mrb_vm_const_get(mrb, mrb_intern_cstr(mrb, "Cocoa")));
+    mrb_value mstate = mrb_mod_cv_get(mrb, klass, mrb_intern_cstr(mrb, "cocoa_state"));
+    return (struct cocoa_state *)mrb_cptr_p(mstate);
 }
 
 int cocoa_swizzle_release(id obj);
