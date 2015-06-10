@@ -396,7 +396,14 @@ cocoa_object_objc_msgSend(mrb_state *mrb, mrb_value self)
             args[0] = arg_type_class;
             marg = mrb_funcall_argv(mrb, marg, sym_to_ffi_value, 1, args);
         }
-        values[i + SELF_AND_SEL] = cfunc_pointer_ptr(marg);
+        const char *argtype = [signature getArgumentTypeAtIndex:i + SELF_AND_SEL];
+        if (strlen(argtype) > 1 && argtype[strlen(argtype)-1] == '*') {
+            void *dataptr = cfunc_pointer_ptr(marg);
+            values[i + SELF_AND_SEL] = mrb_malloc(mrb, sizeof(void*));
+            *((void***)values)[i + SELF_AND_SEL] = dataptr;
+        } else {
+            values[i + SELF_AND_SEL] = cfunc_pointer_ptr(marg);
+        }
     }
 
     values[0] = mrb_malloc(mrb, sizeof(void*));
